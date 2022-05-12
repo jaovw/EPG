@@ -8,10 +8,22 @@
 </head>
 <body>
     <div>
-        <h1>Home</h1>
-        <div class="resultado"></div>
+        <h1>Programação</h1>
+        <div class="resultado">
+           <p>DIA A SER APLICADO: <%= api.programme.date %></p>
+           <p>ATUAL: <%= programacaoAtual %></p>
+
+
+
+                <% api.programme.entries.forEach(item =>{ %>
+
+                    <p><%= item.title %></p>
+                    
+                <%}) %>
+
+              
+        </div>
     </div>
-    <script src="../../index.js"></script>
     
 </body>
 </html>
