@@ -21,4 +21,46 @@ body {
 header, footer {
     background-color: ghostwhite;
     padding: 20 px;
+    text-align: center;
+}
+
+.resultado {
+    align-items: center;
+}
+
+.cabecalhoPrograma {
+    font-size: 18px;
+}
+
+.descricaoPrograma {
+    font-size: 9px;
+}
+
+.nomePrograma {
+    font-size: 12px;
+}
+
+.horarioInicioPrograma {
+    font-size: xx-small;
+}
+
+.horarioFimPrograma {
+    font-size: xx-small;
+}
+
+.thHoraInicio {
+    font-size: xx-small;
+}
+
+.thHoraFim {
+    font-size: xx-small;
+
+}
+/* .aoVivoPrograma {
+    color:red;
+} */
+
+th,tr,td {
+	border: 0;
+	border-top: 1px solid #006497;
 }
