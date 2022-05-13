@@ -10,12 +10,12 @@
     <div>
         <h1>Programação</h1>
         <div class="resultado">
-           <p>DIA A SER APLICADO: <%= api.programme.date %></p>
+           <p>DIA A SER APLICADO: <%= data.date %></p>
            <p>ATUAL: <%= programacaoAtual %></p>
 
 
 
-                <% api.programme.entries.forEach(item =>{ %>
+                <% api.forEach(item =>{ %>
 
                     <p><%= item.title %></p>
                     

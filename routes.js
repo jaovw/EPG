@@ -1,6 +1,6 @@
 const express = require('express')
 const route = express.Router()
-const {getDados, getHora} = require('./src/controllers/homeController')
+const {getDataApi, getDadosApi} = require('./src/controllers/homeController')
 const moment = require('moment')
 
 // let horaMoment = moment().add(3,'hours').format('HH:MM:DD')
@@ -10,18 +10,18 @@ const moment = require('moment')
 route.get('/',async (req, res) =>{
 
     let data = new Date().getTime()
-    let dataAbreviada = Math.floor(data / 1000) // AQUIIIIIIIIIIIIII
+    let dataAbreviada = Math.floor(data / 1000)
 
     const dataParametro = new Date().toLocaleDateString()
     const [dia,mes,ano] = dataParametro.split('/')
 
-    const diaParametro = `${ano}-${mes}-${dia}`  // NAO DEU PORA FOGIR
+    const diaParametro = `${ano}-${mes}-${dia}`
 
-    const d = await getDados(diaParametro)    
-    const t = await getHora(diaParametro, dataAbreviada)
+    const resultadoGetData = await getDataApi(diaParametro)    
+    const resultadoGetDados = await getDadosApi(diaParametro, dataAbreviada)
 
     let programacaoAtual = []
-    for(dado of t){ 
+    for(dado of resultadoGetDados){ 
 
         if(dado.end_time > dataAbreviada && dado.start_time <= dataAbreviada){
 
@@ -37,7 +37,7 @@ route.get('/',async (req, res) =>{
     // console.log(diaParametro)
 
     
-    res.render('index',{ api:d, horas: t ,programacaoAtual, title: 'EPG'})
+    res.render('index',{ api:resultadoGetDados, data:resultadoGetData, programacaoAtual, title: 'EPG'})
 })
 
 module.exports = route
