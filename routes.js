@@ -3,25 +3,27 @@ const route = express.Router()
 const {getDados, getHora} = require('./src/controllers/homeController')
 const moment = require('moment')
 
-// const horaMoment = moment().add(3,'hours').format('HH:MM:DD')
-// const diaAtual = moment().format('YYYY-MM-DD')
+// let horaMoment = moment().add(3,'hours').format('HH:MM:DD')
+// let diaMoment = moment().format('YYYY-MM-DD')
 
 //  ROTAS DA HOME.
 route.get('/',async (req, res) =>{
 
+    let data = new Date().getTime()
+    let dataAbreviada = Math.floor(data / 1000) // AQUIIIIIIIIIIIIII
 
-    const data = new Date().toLocaleString('en-US', { hour12: false, timeZone: 'UTC' })
-    const diaAtual = new Date().toISOString().split('T')[0]
-    const[a, horaAtual] = data.split(' ')
-    
+    const dataParametro = new Date().toLocaleDateString()
+    const [dia,mes,ano] = dataParametro.split('/')
 
-    const d = await getDados(diaAtual)    
-    const t = await getHora(diaAtual, horaAtual)
+    const diaParametro = `${ano}-${mes}-${dia}`  // NAO DEU PORA FOGIR
+
+    const d = await getDados(diaParametro)    
+    const t = await getHora(diaParametro, dataAbreviada)
 
     let programacaoAtual = []
     for(dado of t){ 
 
-        if(dado.human_end_time > horaAtual && dado.human_start_time <= horaAtual){
+        if(dado.end_time > dataAbreviada && dado.start_time <= dataAbreviada){
 
             dado.title === null ? programacaoAtual.push(dado.description): programacaoAtual.push(dado.title)
 
@@ -29,9 +31,10 @@ route.get('/',async (req, res) =>{
             'Algo deu errado'
         }
     }
-    // console.log(diaAtual, horaAtual)
-    // console.log('moment: ',horaMoment)
-    // console.log(diaAtual)
+    // console.log('DIA >>',diaMoment,' HORA >>', horaMoment)
+    // console.log('novo: ',data, dataAbreviada)
+    // console.log(dataParametro,dataAbreviada)
+    // console.log(diaParametro)
 
     
     res.render('index',{ api:d, horas: t ,programacaoAtual, title: 'EPG'})
