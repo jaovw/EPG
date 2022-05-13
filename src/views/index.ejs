@@ -8,21 +8,62 @@
 </head>
 <body>
     <div>
-        <h1>Programação</h1>
+        <h3>Relação </h3>
+        
+        <div class="info">
+
+           <div class="aoVivoPrograma">
+               <p>AO VIVO: <%= programacaoAtual %></p>
+            </div>
+
+        </div>
+
         <div class="resultado">
-           <p>DIA A SER APLICADO: <%= data.date %></p>
-           <p>ATUAL: <%= programacaoAtual %></p>
 
+            <table>
+                <tr class="cabecalhoPrograma">
+                    <th>Nome Programa</th>
+                    <th>Descrição</th>
+                    <th class="thHoraInicio">Hora início</th>
+                    <th class="thHoraFim">Hora fim</th>
+                </tr>
 
-
+               
                 <% api.forEach(item =>{ %>
-
-                    <p><%= item.title %></p>
-                    
+                    <tr>
+                    <td class="nomePrograma"><%= item.program.name %></td>
+                    <td class="descricaoPrograma"><%= item.description %></td>
+                    <td class="horarioInicioPrograma">
+                        <%= new Date(item.start_time * 1000).getHours()  %>:<%= new Date(item.start_time * 1000).getMinutes() %>
+                    </td>
+                    <td class="horarioFimPrograma">
+                        <%= new Date(item.end_time * 1000).getHours()  %>:<%= new Date(item.end_time * 1000).getMinutes() %>
+                    </td>
+                    </tr>
                 <%}) %>
 
-              
+                
+
+               
+
+
+
+            </table>
+
+
+<!--- 
+            <% api.forEach(item =>{ %>
+
+                <p><%= item.program.name %></p>
+                
+            <%}) %>
+
+-->
         </div>
+               
+
+              
+        
     </div>
     
 </body>
